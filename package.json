@@ -1,0 +1,17 @@
+{
+  "name": "zx-wishlist",
+  "version": "1.0.0",
+  "scripts": {
+    "dev-install": "npm install && cd client && npm install",
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.15.1"
+  }
+}
