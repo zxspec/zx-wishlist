@@ -7,10 +7,11 @@ app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
-app.get('/api/wishlist/', (req, res) => {
-  const wishlist = fetchWishlist();
-  res.json(wishlist);
-})
+app.get('/api/wishlist/', (req, res, next) => {
+  fetchWishlist()
+    .then(wishlist => res.json(wishlist))
+    .catch(next);
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
@@ -29,5 +30,6 @@ function fetchWishlist () {
       price: 69.95
     }
   ];
-  return fakeWishList;
+
+  return Promise.resolve(fakeWishList);
 }
