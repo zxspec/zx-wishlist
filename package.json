@@ -5,7 +5,9 @@
     "dev-install": "npm install && cd client && npm install",
     "client": "cd client && npm start",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "e2e-install": "npm install cypress",
+    "e2e-test": "./node_modules/.bin/cypress open"
   },
   "dependencies": {
     "express": "^4.16.2"
