@@ -1,5 +1,9 @@
 /* eslint-env mocha */
 describe('Wishlist API', () => {
+    before(() => {
+        Cypress.config("baseUrl", "http://localhost:5000");
+    });
+    
     describe('wishlist items', () => {
         it('has to be in a json format', function () {
             cy.request('/api/wishlist')
