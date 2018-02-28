@@ -34,17 +34,28 @@ function initInMemoryDB () {
 
 function fetchWishlist () {
     console.info('### fetchWishlist()');
-    const result =[];
+    const result = [];
     
     db.forEach((key, val) => {
         console.info(key);
         result.push(val);
     });
-
+    
     return Promise.resolve(result);
+}
+
+function addWishlistItem (item) {
+    console.info('### addWishlistItem()');
+    const promiseToAddItem = new Promise((resolve, reject) => {
+        db.set(item.url, item, () => {
+            resolve( {url: item.url} );
+        })
+    }); 
+    return promiseToAddItem;
 }
 
 module.exports = {
     initDB: initInMemoryDB,
-    fetchWishlist: fetchWishlist
+    fetchWishlist: fetchWishlist,
+    addWishlistItem: addWishlistItem
 };

@@ -52,4 +52,28 @@ describe('Wishlist API', () => {
             });
         });
     });
+
+    describe('add wishlist item', () => {
+        const fakeProduct =     {
+            url: 'http://www.adidas.co.uk/stan-smith-shoes/M20325.html',
+            image: 'https://www.adidas.co.uk/dis/dw/image/v2/aagl_prd/on/demandware.static/Sites-adidas-GB-Site/Sites-adidas-products/en_GB/v1519517066528/zoom/M20325_01_standard.jpg?sw=60&sh=60&sm=fit',
+            name: 'Stan Smith Shoes',
+            price: 69.95
+        };
+
+        it('should respond in JSON format', function () {
+            cy.request('post', '/api/wishlist/add', fakeProduct)
+                .its('headers')
+                    .its('content-type')
+                    .should('include', 'application/json')        
+        });
+
+        it('should return object containing url of the added product', function () {
+            cy.request('post', '/api/wishlist/add', fakeProduct)
+                .then( res => {
+                    const addProductResult = res.body;
+                    expect(addProductResult.url).to.equal(fakeProduct.url);
+                });
+        });
+    });
 })
