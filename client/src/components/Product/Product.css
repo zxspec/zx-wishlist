@@ -1,0 +1,7 @@
+/* .product {} */
+
+.product .error {
+    color: red;
+    background-color: yellow;
+    font-weight: bold; 
+}
