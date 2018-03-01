@@ -12,14 +12,13 @@ class Product extends Component {
     }
 
     addToWishlistHandler = () => {
-        console.info(this.props);
-        const url = `/api/wishlist/add`;
-        axios.post(url, this.props.product)
+        console.info(this.props);        
+        axios.post('/api/wishlist/add', this.props.product)
             .then(res => {
                 if (res.data.url === this.props.product.url) {
                     this.setState({isInWishlist: true});
                 } else {
-                    throw new Error('Failed to add product to wishlist');
+                    throw new Error('Failed to add a product to wishlist');
                 }
             })
             .catch(err => {
@@ -31,18 +30,22 @@ class Product extends Component {
         let errorBlock = null
         if (this.state.errorMessage) {
             errorBlock = (<p className="error">{this.state.errorMessage}</p>);
-        }       
+        }
+        const product = this.props.product;
         return (
             <div className="product">
-                <a href={this.props.product.url}>
-                    {this.props.product.name}
-                    <img src={this.props.product.image} />
+                <a href={product.url}>
+                    {product.name}
+                    <img src={product.image} alt={product.name}/>
                 </a>
-                <strong className="price">price: {this.props.product.price}</strong>
+                <strong className="price">price: {product.price}</strong>
                 <button 
                     className="add-to-wishlist"
                     disabled={this.state.isInWishlist}
-                    onClick={this.addToWishlistHandler}>Add To Wishlist</button>                
+                    onClick={this.addToWishlistHandler}>Add To Wishlist</button>
+                <button 
+                    className="remove-from-wishlist"
+                    onClick={this.props.remove}>Remove From Wishlist</button>
                 {errorBlock}
             </div>
         );

@@ -18,10 +18,6 @@ const fakeWishList = [
 function initInMemoryDB () {
     console.info('### init DB');
     db = dirty();
-
-    db.on('drain', () => {
-        console.warn('All records are saved on disk now.')
-    }); // this should never happen
     
     return new Promise((resolve, reject) => {
         db.on('load', function() {
@@ -46,16 +42,29 @@ function fetchWishlist () {
 
 function addWishlistItem (item) {
     console.info('### addWishlistItem()');
+    
     const promiseToAddItem = new Promise((resolve, reject) => {
         db.set(item.url, item, () => {
             resolve( {url: item.url} );
         })
-    }); 
+    });
+
     return promiseToAddItem;
+}
+
+function removeWishlistItem (id) {
+    console.info('### removeWishlistItem()');
+    
+    const promiseToRemoveItem = new Promise((resolve, reject) => {
+        db.rm(id, () => resolve({result: 'OK'}));
+    }); 
+
+    return promiseToRemoveItem;
 }
 
 module.exports = {
     initDB: initInMemoryDB,
     fetchWishlist: fetchWishlist,
-    addWishlistItem: addWishlistItem
+    addWishlistItem: addWishlistItem,
+    removeWishlistItem
 };

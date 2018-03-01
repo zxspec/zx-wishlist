@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Product from '../../components/Product/Product';
 import axios from 'axios';
 
+import './ProductSearch.css';
+
 class ProductSearch extends Component {
     state = {
         products: [],        

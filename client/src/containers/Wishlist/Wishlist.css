@@ -1,0 +1,7 @@
+.wishlist .product .add-to-wishlist {
+    display: none;
+}
+
+.wishlist .product .remove-from-wishlist {
+    display: block;
+}

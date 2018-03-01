@@ -6,6 +6,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 5000;
+
 const datalayer = require('./datalayer/datalayer');
 const search = require('./datalayer/search');
 
@@ -23,8 +24,15 @@ app.get('/api/wishlist/', (req, res, next) => {
 app.post('/api/wishlist/add', (req, res, next) => {
   const wishlistItem = req.body;
   datalayer.addWishlistItem(wishlistItem)
-     .then(result => res.json(result))
-     .catch(next);
+    .then(result => res.json(result))
+    .catch(next);
+});
+
+app.post('/api/wishlist/remove', (req, res, next) => {
+  const id = req.body.id;
+  datalayer.removeWishlistItem(id)
+    .then(result => res.json(result))
+    .catch(next);
 });
 
 app.get('/api/search/', (req, res, next) => {

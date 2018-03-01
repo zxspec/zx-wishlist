@@ -1,0 +1,6 @@
+nav a {
+    margin: 1em;
+}
+nav a.active {
+    color: orange;
+}

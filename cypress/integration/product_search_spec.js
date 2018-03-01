@@ -10,6 +10,11 @@ describe('Product Search Functionality', () => {
             cy.get('.productSearchBox:first');
         });
 
+        it('has display navigation', function () {
+            cy.visit('/');
+            cy.get('nav');
+        });
+
         context('searching for non existing product', () => {
             it('has to show "No Result" message', function () {
                 cy.visit('/');
@@ -61,6 +66,15 @@ describe('Product Search Functionality', () => {
                     cy.get('@product').find('.add-to-wishlist').click();
                     cy.wait('@addWishlistItem').then(res => {
                         expect(res.status).to.equal(200);
+                    });
+                });
+
+                it('should not display "remove from wishlist" button', function () {
+                    cy.get('@product').then($product => {
+                        const $btn = $product.find('.remove-from-wishlist');
+                        if ($btn.length) {
+                            expect($btn.css('display')).to.equal('none');
+                        }
                     });
                 });
             });
