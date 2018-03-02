@@ -24,13 +24,11 @@ class Wishlist extends Component{
     }
 
     removeFromWishlistHandler = (id) => {
-        debugger;
         console.info(this.props);        
         axios.post('/api/wishlist/remove', { url: id })
             .then(res => {
                 if (res.data.result === 'OK') {
                     const newProducts = [...this.state.products].filter(p => p.url !== id);
-                    debugger;
                     this.setState({products: newProducts});
                 } else {
                     throw new Error('Failed to remove a product to wishlist');
@@ -42,8 +40,10 @@ class Wishlist extends Component{
     }
     
     render ()  {
-        let products = null;
+        let products;
+        let header = <span className="no-wishlist-items">No items in wishlist </span>
         if (this.state.products && this.state.products.length) {
+            header = <h2>Wishlist items:</h2>;
             products = this.state.products.map( (product, idx) => 
                 <Product key={idx} product={product} remove={() => this.removeFromWishlistHandler(product.url)}/>
             );
@@ -57,7 +57,7 @@ class Wishlist extends Component{
         return (
             <section className="wishlist">
                 {errorBlock}
-                Wishlist items:
+                {header}
                 {products}
             </section>
         );

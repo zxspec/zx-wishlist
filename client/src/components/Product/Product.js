@@ -34,9 +34,9 @@ class Product extends Component {
         const product = this.props.product;
         return (
             <div className="product">
+                <img src={product.image} alt={product.name}/>
                 <a href={product.url}>
-                    {product.name}
-                    <img src={product.image} alt={product.name}/>
+                    {product.name}                    
                 </a>
                 <strong className="price">price: {product.price}</strong>
                 <button 

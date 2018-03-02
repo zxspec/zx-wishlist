@@ -5,8 +5,6 @@ import ProductSearch from './containers/ProductSearch/ProductSearch';
 import Wishlist from './containers/Wishlist/Wishlist';
 import Navigation from './components/Navigation/Navigation';
 
-import './App.css';
-
 class App extends Component {
   render() {
     return (

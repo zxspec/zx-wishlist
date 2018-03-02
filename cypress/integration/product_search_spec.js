@@ -49,7 +49,7 @@ describe('Product Search Functionality', () => {
                 });
 
                 it('should have a preview image', () => {                    
-                    cy.get('@product').find('a img');
+                    cy.get('@product').find('img');
                 });
 
                 it('should have a price', () => {                    

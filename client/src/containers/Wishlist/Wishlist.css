@@ -1,3 +1,8 @@
+.wishlist {
+    display: flex;
+    flex-direction: column;
+}
+
 .wishlist .product .add-to-wishlist {
     display: none;
 }

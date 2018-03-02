@@ -1,3 +1,14 @@
+.productSearchBox {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+.productSearchBox .productSearch {
+    min-width: 360px;
+    font-size: 20pt;
+}
+
 .productSearchBox .product .remove-from-wishlist {
     display: none;
 }
