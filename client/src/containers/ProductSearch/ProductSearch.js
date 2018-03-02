@@ -10,19 +10,22 @@ class ProductSearch extends Component {
         typingTimer: null
     }
 
-    findProducts = (searchPhrase) => {
+    findProducts = (event) => {
+        const searchPhrase = event.target.value;
         if (this.state.typingTimer) {
             clearTimeout(this.state.typingTimer);
         }
         const timerID = setTimeout(() => {
-            axios.get(`/api/search/?q=${searchPhrase}`)
-                .then(res => {
-                    console.info('### product: ', res.data);
-                    this.setState({
-                        products: res.data,
-                        typingTimer: null
+            if (searchPhrase) {
+                axios.get(`/api/search/?q=${searchPhrase}`)
+                    .then(res => {
+                        console.info('### product: ', res.data);
+                        this.setState({
+                            products: res.data,
+                            typingTimer: null
+                        });
                     });
-                });
+            }
         }, 300);
         this.setState({typingTimer: timerID});
     }
