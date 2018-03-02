@@ -1,13 +1,8 @@
 /* eslint-env mocha */
-const fakeProduct =     {
-    url: 'http://www.adidas.co.uk/stan-smith-shoes/M20325.html',
-    image: 'https://www.adidas.co.uk/dis/dw/image/v2/aagl_prd/on/demandware.static/Sites-adidas-GB-Site/Sites-adidas-products/en_GB/v1519517066528/zoom/M20325_01_standard.jpg?sw=60&sh=60&sm=fit',
-    name: 'Stan Smith Shoes',
-    price: 69.95
-};
-describe('Product Search Functionality', () => {
+describe('Wishlist Functionality', () => {
     before(() => {
         Cypress.config("baseUrl", "http://localhost:3000");
+        cy.fixture('fakeProduct').as('fakeProduct');
     });
 
     describe('search box', () => {
@@ -29,7 +24,7 @@ describe('Product Search Functionality', () => {
 
         context('wishlist product', () => {
             beforeEach(() => {
-                cy.request('post', '/api/wishlist/add', fakeProduct);
+                cy.request('post', '/api/wishlist/add', '@fakeProduct');
             });
 
             it('should not display "add to wishlist" button', () => {
@@ -54,21 +49,5 @@ describe('Product Search Functionality', () => {
                 });
             });
         });
-
-        context('no wishlist products', () => {
-            beforeEach(() => {
-                cy.request('post', '/api/wishlist/add', fakeProduct);
-            });
-
-            it('has to display products from wishlist', () => {
-                cy.get('.wishlist .product')
-                    .each($el => {
-                        cy.wrap($el).find('.remove-from-wishlist').click();
-                    })
-                    .then(() => {
-                        cy.get(".no-wishlist-items");
-                    });
-            });
-        })
     });
 })
